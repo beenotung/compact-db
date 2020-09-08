@@ -3,7 +3,7 @@ import { MB } from '@beenotung/tslib/size'
 import fs from 'fs'
 import path from 'path'
 
-export const config = {
+const defaultConfig = {
   batch_read_size: 8 * MB,
   compact_ratio: 2, // LOG_FILE.size divides DATA_FILE.size
 }
@@ -31,10 +31,12 @@ type BatchLine = ['c'] | ['s', Key, any] | ['d', Key]
  *    LOG.dat (file2)
  *    TMP.dat (file3)
  */
-export function createDB(options: {
-  path: string
-  onError?: (err: any) => void
-}) {
+export function createDB(
+  options: {
+    path: string
+  } & Partial<typeof defaultConfig>,
+) {
+  const config = Object.assign({}, defaultConfig, options)
   const dir = options.path
   fs.mkdirSync(dir, { recursive: true })
 
