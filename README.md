@@ -68,3 +68,7 @@ export declare type Op = {
 ```
 
 Details refer to the [test spec](./test/db.test.ts)
+
+## License
+[BSD-2-Clause](./LICENSE)
+(Free and open-source software)
