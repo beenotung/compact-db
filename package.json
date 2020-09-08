@@ -1,8 +1,15 @@
 {
   "name": "compact-db",
   "version": "0.0.0",
-  "description": "",
-  "keywords": [],
+  "description": "A lightweight embedded database inspired from leveldb but operate in sync mode",
+  "keywords": [
+    "embedded database",
+    "snap-db",
+    "level-db",
+    "typescript",
+    "object",
+    "key-value"
+  ],
   "author": {
     "name": "Beeno Tung",
     "email": "aabbcc1241@yahoo.com.hk",
