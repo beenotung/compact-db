@@ -1,6 +1,6 @@
 {
   "name": "compact-db",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "A lightweight embedded database inspired from leveldb but operate in sync mode",
   "keywords": [
     "embedded database",
