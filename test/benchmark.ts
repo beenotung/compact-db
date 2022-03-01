@@ -34,9 +34,9 @@ function report() {
   const now = Date.now()
   const passed = now - start
   console.log(
-    `tick=${tick}, n=${n}, passed=${format_time_duration(passed)}, TPS=${
-      tick / (passed / 1000)
-    }`,
+    `tick=${tick.toLocaleString()}, n=${n.toLocaleString()}, passed=${format_time_duration(
+      passed,
+    )}, TPS=${(tick / (passed / 1000)).toLocaleString()}`,
   )
 }
 
