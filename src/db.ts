@@ -51,49 +51,54 @@ export function createDB(
         batchSize: config.batch_read_size,
       })) {
         size += line.length + 1 // +1 for line feed
-        // console.log('load', {line})
-        if (line.startsWith('s|')) {
-          const [key, json] = JSON.parse(line.substr(2))
-          const value = JSON.stringify(json)
-          cache[key] = value
+        if (line[1] !== '|') {
+          console.warn('skip corrupted entry', { file, line })
           continue
         }
-        if (line.startsWith('d|')) {
-          const key = JSON.parse(line.substr(2))
-          delete cache[key]
-          continue
-        }
-        if (line.startsWith('c|')) {
-          cache = {}
-          continue
-        }
-        if (line.startsWith('b|')) {
-          const lines: BatchLine = JSON.parse(line.substr(2))
-          for (const line of lines) {
-            switch (line[0]) {
-              case 'c':
-                cache = {}
-                break
-              case 's': {
-                const key = line[1]
-                const value = line[2]
-                const json = JSON.stringify(value)
-                cache[key] = json
-                break
-              }
-              case 'd': {
-                const key = line[1]
-                delete cache[key]
-                break
-              }
-              default:
-                console.error('invalid batch line:', line)
-                throw new Error('invalid batch line')
-            }
+        switch (line[0]) {
+          case 's': {
+            const [key, json] = JSON.parse(line.substr(2))
+            const value = JSON.stringify(json)
+            cache[key] = value
+            continue
           }
-          continue
+          case 'd': {
+            const key = JSON.parse(line.substr(2))
+            delete cache[key]
+            continue
+          }
+          case 'c':
+            cache = {}
+            continue
+          case 'b': {
+            const lines: BatchLine = JSON.parse(line.substr(2))
+            for (const line of lines) {
+              switch (line[0]) {
+                case 'c':
+                  cache = {}
+                  break
+                case 's': {
+                  const key = line[1]
+                  const value = line[2]
+                  const json = JSON.stringify(value)
+                  cache[key] = json
+                  break
+                }
+                case 'd': {
+                  const key = line[1]
+                  delete cache[key]
+                  break
+                }
+                default:
+                  console.error('invalid batch line:', line)
+                  throw new Error('invalid batch line')
+              }
+            }
+            continue
+          }
+          default:
+            console.warn('skip corrupted entry', { file, line })
         }
-        console.warn('skip corrupted entry', { file, line })
       }
     }
     return { size }
