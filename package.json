@@ -17,7 +17,6 @@
   "scripts": {
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
-    "postformat": "tslint -p . --fix",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.build.json",
     "test": "npm run format && npm run build && npm run mocha",
