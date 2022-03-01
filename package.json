@@ -12,18 +12,16 @@
   ],
   "author": "Beeno Tung <aabbcc1241@yahoo.com.hk> (https://beeno-tung.surge.sh)",
   "license": "BSD-2-Clause",
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "dist/db.js",
+  "types": "dist/db.d.ts",
   "scripts": {
-    "test": "npm run rawtest",
     "clean": "rimraf dist",
     "format": "prettier --write \"src/**/*.ts\" \"test/**/*.ts\"",
     "postformat": "tslint -p . --fix",
     "prebuild": "npm run clean",
     "build": "tsc -p tsconfig.build.json",
-    "pretest": "npm run format && npm run build",
-    "rawtest": "ts-node test/index.ts && jest",
-    "prepublishOnly": "npm run rawtest && npm run build"
+    "test": "npm run format && npm run build && jest",
+    "prepublishOnly": "jest && npm run build"
   },
   "husky": {
     "hook": {
