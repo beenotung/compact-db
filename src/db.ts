@@ -1,7 +1,7 @@
 import { iterateFileByLine } from '@beenotung/tslib/fs'
 import { MB } from '@beenotung/tslib/size'
-import fs from 'fs'
-import path from 'path'
+import * as fs from 'fs'
+import * as path from 'path'
 
 const defaultConfig = {
   batch_read_size: 8 * MB,

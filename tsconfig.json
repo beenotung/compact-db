@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
-    "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": false,
+    "allowSyntheticDefaultImports": false,
     "allowJs": false,
     "sourceMap": false,
     "declaration": true,
@@ -10,7 +10,7 @@
     "strict": true,
     "skipLibCheck": true,
     "downlevelIteration": false,
-    "importHelpers": true,
+    "importHelpers": false,
     "lib": [
       "dom",
       "es2018"
